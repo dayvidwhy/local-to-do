@@ -1,0 +1,33 @@
+<html>
+<head>
+    <title>To Do App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style type="text/css">
+    .block {
+        display: block;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header role="header" class="page-header text-center">
+            <h1>Pretty Easy To-Do<br><small>Locally Saved</small></h1>
+        </header>
+        <div class="row">
+            <div class="col-md-6 col-sm-8 col-md-offset-3 col-sm-offset-2 col-xs-8 col-xs-offset-2">
+                <div class="input-group input-group-lg">
+                    <input type="text" name="input" class="form-control" placeholder="I want to...">
+                    <span class="input-group-btn">
+                        <button id="submit" class="btn btn-default" type="button">+</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="output" class="col-md-6 col-sm-8 col-md-offset-3 col-sm-offset-2 col-xs-8 col-xs-offset-2">
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
