@@ -115,11 +115,11 @@ function toggleActiveClass(panel) {
     var panelElement = panel.parentElement.parentElement;
     var classes = panelElement.classList;
     console.log(classes);
-    if (panelElement.classList.contains('info-panel')) {
+    if (panelElement.classList.contains('panel-info')) {
         panelElement.classList.add('panel-danger');
-        panelElement.classList.remove('info-panel');
+        panelElement.classList.remove('panel-info');
     } else {
-        panelElement.classList.add('info-panel');
+        panelElement.classList.add('panel-info');
         panelElement.classList.remove('panel-danger');
     }
 }
@@ -130,9 +130,9 @@ function toggleActiveClass(panel) {
 function printToDo(date, text, active) {
     var content = document.createElement('div');
     if (active === "yes") {
-        content.className = "panel panel-info panel-info show";
+        content.className = "panel panel-info show";
     } else {
-        content.className = "panel panel-info panel-danger hide";
+        content.className = "panel panel-danger hide";
     }
     var heading = document.createElement('div');
     heading.className = "panel-heading";
