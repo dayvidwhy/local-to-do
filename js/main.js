@@ -23,8 +23,8 @@ $("#done").addEventListener('click', function() {
     this.classList.add('active');
     $("#active").classList.remove('active');
 
-    var active = $(".active-panel");
-    var inactive = $(".not-active-panel");
+    var active = $(".panel-info");
+    var inactive = $(".panel-danger");
     for (var i = 0; i < active.length; i++) {
         active[i].classList.add('hide');
         active[i].classList.remove('show');
@@ -42,8 +42,8 @@ $("#active").addEventListener('click', function() {
     this.classList.add('active');
     $("#done").classList.remove('active');
 
-    var active = $(".active-panel");
-    var inactive = $(".not-active-panel");
+    var active = $(".panel-info");
+    var inactive = $(".panel-danger");
     for (var i = 0; i < active.length; i++) {
         active[i].classList.add('show');
         active[i].classList.remove('hide');
@@ -115,12 +115,12 @@ function toggleActiveClass(panel) {
     var panelElement = panel.parentElement.parentElement;
     var classes = panelElement.classList;
     console.log(classes);
-    if (panelElement.classList.contains('active-panel')) {
-        panelElement.classList.add('not-active-panel');
-        panelElement.classList.remove('active-panel');
+    if (panelElement.classList.contains('info-panel')) {
+        panelElement.classList.add('panel-danger');
+        panelElement.classList.remove('info-panel');
     } else {
-        panelElement.classList.add('active-panel');
-        panelElement.classList.remove('not-active-panel');
+        panelElement.classList.add('info-panel');
+        panelElement.classList.remove('panel-danger');
     }
 }
 
@@ -130,9 +130,9 @@ function toggleActiveClass(panel) {
 function printToDo(date, text, active) {
     var content = document.createElement('div');
     if (active === "yes") {
-        content.className = "panel panel-info active-panel show";
+        content.className = "panel panel-info panel-info show";
     } else {
-        content.className = "panel panel-info not-active-panel hide";
+        content.className = "panel panel-info panel-danger hide";
     }
     var heading = document.createElement('div');
     heading.className = "panel-heading";
