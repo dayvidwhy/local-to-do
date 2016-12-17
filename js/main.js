@@ -183,11 +183,8 @@ toDo.init(); // Start
 function $(element) {
     if (element[0] === '#') {
         return document.getElementById(element.slice(1, element.length));
-    } else if (element[0] === '.') {
-        return document.querySelectorAll(element);
-    } else {
-        return document.querySelectorAll(element);
     }
+    return document.querySelectorAll(element);
 }
 
 /*
