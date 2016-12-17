@@ -154,8 +154,7 @@ var toDo = {
             toDo.save();
         });
         $("#clear").addEventListener('click', function() {
-            toDo.list = [];
-            toDo.save();
+            toDo.clear();
             var all = $(".panel");
             for (var i = 0; i < all.length; i++) {
                 all[i].outerHTML = ""; // purge panels
