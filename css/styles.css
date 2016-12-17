@@ -70,6 +70,7 @@ h1,h2,h3,h4,h5,h6 {
 .panel {
     border: 1px solid #7f8c8d;
     margin-bottom: 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .panel-to-do {
@@ -129,6 +130,12 @@ h1,h2,h3,h4,h5,h6 {
     border-color: #ccc;
 }
 
+.btn-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
 .active {
     color: #FFF;
     background-color: #2980b9;
@@ -143,8 +150,14 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .btn-group > .btn {
-    width: 49%;
+    width: 20%;
     display: inline-block;
+}
+.btn-group > .btn:first-child {
+    margin-right: 1%;
+}
+.btn-group > .btn:last-child {
+    margin-left: 1%;
 }
 /* end buttons */
 .input-button {
@@ -152,10 +165,22 @@ h1,h2,h3,h4,h5,h6 {
     display: inline-block;
     font-size: 24px;
     padding: 10px;
+    border-radius: 0;
+    border-left: none;
+    transition: all 0.1s ease-in-out;
 }
+
+.input-button:hover {
+    color: #FFF;
+    background-color: #1abc9c; 
+}
+
 input[type=text] {
     display: inline-block;
-    padding: 12px;
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-right: none;
+    outline: none;
     font-size: 24px;
     cursor: inherit;
     width: 90%;
@@ -164,6 +189,10 @@ input[type=text] {
 /* UI Management Classes */
 .show {display: block;}
 .hide {display: none;}
+
+footer > p {
+    text-align: center;
+}
 
 /* Simple resize */
 @media screen and (max-width: 960px) {

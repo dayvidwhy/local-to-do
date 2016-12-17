@@ -142,7 +142,7 @@ var toDo = {
                 return;
             }
             var date = new Date();
-            var titleDate = date.toDateString() + ' ' + toRelativeTime(date.getHours());
+            var titleDate = date.toDateString() + ' ' + toRelativeTime(date.getHours(), date.getMinutes());
             toDo.printToDo(titleDate, text, true);
             document.getElementsByName('input')[0].value = "";
             toDo.list.push({
@@ -150,7 +150,16 @@ var toDo = {
                 'text'  : text,
                 'active': true
             });
+            $("#active").click();
             toDo.save();
+        });
+        $("#clear").addEventListener('click', function() {
+            toDo.list = [];
+            toDo.save();
+            var all = $(".panel");
+            for (var i = 0; i < all.length; i++) {
+                all[i].outerHTML = ""; // purge panels
+            }
         });
     },
 
@@ -162,6 +171,12 @@ var toDo = {
 
     // setup list
     init: function() {
+        if (!this.available) {
+            $('#output').innerHTML = 'Please update your browser to use this page.';
+            $('#output').style.fontSize = "24px";
+            $('#output').style.color = "#a94442";
+            return;
+        }
         this.fetch();
         var length = this.list.length;
         if (length > 0) {
@@ -190,15 +205,18 @@ function $(element) {
 /*
     Turns 24 hour time into 12 hour time.
 */
-function toRelativeTime(time) {
-    if (time >= 12) {
-        time -= 12;
-        return time + 'pm'
+function toRelativeTime(hour, minutes) {
+    if (minutes < 10) {
+        minutes = '0' + minutes;
     }
-    if (time === 0) {
-        return '12am';
+    if (hour >= 12) {
+        hour -= 12;
+        return hour + ':' + minutes + 'pm'
     }
-    return time + 'am';
+    if (hour === 0) {
+        return '12:' + minutes + 'am';
+    }
+    return hour + ':' + minutes + 'am';
 }
 
 function toggleActiveClass(panel) {
