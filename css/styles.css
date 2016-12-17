@@ -200,3 +200,25 @@ footer > p {
         width: 95%;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .col-8 {
+        width: calc(100% / 12 * 10);
+    }
+
+    .offset-2 {
+        margin-left: calc(100% / 12);
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .container {
+        width: 98%;
+    }
+    .col-8 {
+        width: 100%;
+    }
+    .offset-2 {
+        margin-left: 0;
+    }
+}
