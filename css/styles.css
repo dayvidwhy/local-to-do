@@ -1,0 +1,173 @@
+*, *::after, *::before {
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: #ecf0f1;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+/* Grid styles */
+.container {
+    width: 960px;
+    margin: auto;
+}
+
+.row {
+    width: 100%;
+    overflow: auto;
+}
+
+.col-8 {
+    width: calc(100% / 12 * 8);
+}
+
+.offset-2 {
+    margin-left: calc(100% / 12 * 2);
+}
+
+main {
+    display: block;
+}
+/* End grid */
+
+/* Text styles */
+h1,h2,h3,h4,h5,h6 {
+    margin: 0;
+    padding: 0; 
+}
+
+.page-header > h1 {
+    font-size: 40px;
+    font-weight: 500;
+    margin: 20px 0;
+    border-bottom: 1px solid #7f8c8d;
+}
+
+.page-header > h1 > small {
+    font-size: 0.8em;
+    color: #7f8c8d;
+}
+
+.text-center {
+    text-align: center;
+}
+/* End text */
+
+.block {
+    display: block;
+    float: right;
+    margin-left: 10px;
+}
+
+/* Panels */
+.panel {
+    border: 1px solid #7f8c8d;
+    margin-bottom: 10px;
+}
+
+.panel-to-do {
+    border-color: #bce8f1;
+}
+
+.panel-heading {
+    padding: 10px 15px;
+}
+
+.panel-title {
+    font-size: 16px;
+    color: inherit;
+}
+
+.panel-to-do > .panel-heading {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.panel-done {
+    border-color: #ebccd1;
+}
+
+.panel-done > .panel-heading {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.panel-body {
+    font-size: 1.7em;
+    padding: 15px 15px;
+    background-color: #FFF;
+}
+/* End panels */
+
+.top-margin {
+    margin-top: 10px;
+}
+
+/* buttons */
+.btn {
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    white-space: nowrap;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid transparent;
+}
+
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.active {
+    color: #FFF;
+    background-color: #2980b9;
+    border-color: #adadad;
+}
+
+.btn-group {
+    text-align: center;
+    width: 100%;
+    display: block;
+    margin: 10px 0;
+}
+
+.btn-group > .btn {
+    width: 49%;
+    display: inline-block;
+}
+/* end buttons */
+.input-button {
+    width: 10%;
+    display: inline-block;
+    font-size: 24px;
+    padding: 10px;
+}
+input[type=text] {
+    display: inline-block;
+    padding: 12px;
+    font-size: 24px;
+    cursor: inherit;
+    width: 90%;
+}
+
+/* UI Management Classes */
+.show {display: block;}
+.hide {display: none;}
+
+/* Simple resize */
+@media screen and (max-width: 960px) {
+    .container {
+        width: 95%;
+    }
+}

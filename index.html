@@ -7,64 +7,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#359DFF">
     <title>To Do App</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <style type="text/css">
-    .block {
-        display: block;
-        float: right;
-    }
-    .panel-body {
-        font-size: 1.7em;
-    }
-    .top-margin {
-        margin-top: 10px;
-    }
-    .btn-group {
-        width: 100%;
-        display: block;
-        margin: 10px 0;
-    }
-    .btn-group > .btn {
-        width: 50%;
-        display: inline-block;
-    }
-    .show {
-        display: block;
-    }
-    .hide {
-        display: none;
-    }
-    </style>
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link rel="canonical" href="https://dayvidwhy.github.io/local-to-do/">
 </head>
 <body>
-    <div class="container-fluid">
+    <main class="container">
         <header role="header" class="page-header text-center">
             <h1>Pretty Easy To-Do<br><small>Locally Saved</small></h1>
         </header>
         <div class="row">
-            <div class="col-md-6 col-sm-8 col-md-offset-3 col-sm-offset-2 col-xs-8 col-xs-offset-2">
-                <div class="input-group input-group-lg">
-                    <input type="text" name="input" class="form-control" placeholder="I want to...">
-                    <span class="input-group-btn">
-                        <button id="submit" class="btn btn-default" type="button">+</button>
-                    </span>
-                </div>
+            <div class="col-8 offset-2">
+                <h2>What's this?</h2>
+                <p>I wanted to test out the abilities of local storage to keep track of some items. Things you enter in the box below will get kept on record in your browser. If you come back later they will get printed on the page again.</p>
+                <input type="text" name="input" class="form-control" placeholder="I want to..."><button id="submit" class="btn btn-default input-button" type="button">+</button>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 col-sm-8 col-md-offset-3 col-sm-offset-2 col-xs-8 col-xs-offset-2">
-                <div class="btn-group" role="group" aria-label="...">
-                    <button id="active" type="button" class="btn btn-default active">Active</button>
-                  <button id="done" type="button" class="btn btn-default">Done</button>
-              </div>
-          </div>
-      </div>
-      <div class="row top-margin">
-        <div id="output" class="col-md-6 col-sm-8 col-md-offset-3 col-sm-offset-2 col-xs-8 col-xs-offset-2">
+            <div class="col-8 offset-2">
+                <div class="btn-group" role="group" aria-label="Active and Done">
+                    <button id="active" type="button" class="btn btn-default active state-buttons" aria-label="Active Items">Active</button>
+                    <button id="done" type="button" class="btn btn-default state-buttons" aria-lael="Done Items">Done</button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<script type="text/javascript" src="js/main.js"></script>
+        <div class="row top-margin">
+            <div id="output" class="col-8 offset-2">
+            </div>
+        </div>
+    </main>
+    <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>

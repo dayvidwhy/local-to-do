@@ -1,100 +1,193 @@
-// Does the browser support storage?
-var storageSupported;
+/*
+    To Do List using Local Storage
+    Stores a stringified version of the object we keep track of.
+*/
 
-if (typeof(Storage) !== "undefined") {
-    storageSupported = true;
-} else {
-    storageSupported = false;
-}
+// methods
+var toDo = {
+    // check if storage available.
+    available: function() {
+        if (!this.supported) {
+            if (typeof(Storage) !== "undefined") {
+                this.supported = true;
+            } else {
+                this.supported = false;
+            }
+            return this.supported;
+        }
+        return this.supported; // we already checked before
+    },
 
-// Will either return object or new empty obejct
-var toDoList = getToDos();
+    // gets list of To-Do's from local storage
+    fetch: function() {
+        var retrievedObject = localStorage.getItem('toDoList');
+        if (retrievedObject === null) {
+            this.list = [];
+        } else {
+            this.list = JSON.parse(retrievedObject);
+        }
+    },
 
-if (toDoList.length > 0) {
-    for (var i = 0; i < toDoList.length; i++) {
-        printToDo(toDoList[i].date, toDoList[i].text, toDoList[i].active);
+    // saves list of to-do's to local storage
+    save: function() {
+        localStorage.setItem('toDoList', JSON.stringify(this.list));
+    },
+
+    // removes an item from local storage
+    remove: function(date, text) {
+        var length = this.list.length;
+        for (var i = 0; i < length; i++) {
+            if (this.list[i].date === date
+                    && this.list[i].text === text) {
+                this.list.splice(i, 1);
+            }
+        }
+        this.save();
+    },
+
+    // toggles an items active state
+    toggle: function(date, text) {
+        for (var i = 0; i < this.list.length; i++) {
+            if (this.list[i].date === date
+                    && this.list[i].text === text) {
+                this.list[i].active = !this.list[i].active;
+            }
+        }
+        this.save();
+    },
+
+    // Prints out a Todo on the page.
+    printToDo: function(date, text, active) {
+        var content = document.createElement('div');
+        if (active) {
+            content.className = "panel panel-to-do show";
+        } else {
+            content.className = "panel panel-done hide";
+        }
+        var heading = document.createElement('div');
+        heading.className = "panel-heading";
+        var title = document.createElement('h3');
+        title.className = "panel-title";
+        title.innerHTML = date;
+
+        var body = document.createElement('div');
+        body.className = "panel-body";
+        body.innerHTML = text;
+
+        // create button that lets the panel be toggled
+        var toggled = document.createElement('button');
+        toggled.className = "btn btn-default block";
+        toggled.innerHTML = 'Toggle';
+        toggled.addEventListener('click', function() {
+            var panelOwner = this.parentElement.parentElement;
+            panelOwner.classList.remove('show');
+            panelOwner.classList.add('hide');
+            toggleActiveClass(this);
+            toDo.toggle(date, text);
+        });
+
+        // create button that lets the panel be deleted
+        var delButton = document.createElement('button');
+        delButton.className = "btn btn-default block";
+        delButton.innerHTML = 'Delete';
+        delButton.addEventListener('click', function() {
+            this.parentElement.parentElement.outerHTML = "";
+            toDo.remove(date, text);
+        });
+
+        // Add to the DOM
+        body.appendChild(delButton);
+        body.appendChild(toggled);
+        heading.appendChild(title);
+        content.appendChild(heading);
+        content.appendChild(body);
+        $('#output').appendChild(content);
+    },
+
+    clickHandlers: function() {
+        // Add click handlers
+        var states = $('.state-buttons');
+        for (var i = 0; i < states.length; i++) {
+            states[i].addEventListener('click', function() {
+                if (this.classList.contains('active')) {
+                    return;
+                }
+                var active, inactive;
+                this.classList.add('active');
+                if (this.innerHTML === "Active") { //pretty poor check
+                    // they clicked the active button
+                    $("#done").classList.remove('active');
+                    inactive = $(".panel-to-do");
+                    active = $(".panel-done");
+                } else {
+                    // they clicked the done button
+                    $("#active").classList.remove('active');
+                    inactive = $(".panel-done");
+                    active = $(".panel-to-do");
+                }
+                for (var i = 0; i < active.length; i++) {
+                    active[i].classList.add('hide');
+                    active[i].classList.remove('show');
+                }
+                for (var i = 0; i < inactive.length; i++) {
+                    inactive[i].classList.add('show');
+                    inactive[i].classList.remove('hide');
+                }
+            });
+        }
+        // Add a to-do panel to the page
+        $('#submit').addEventListener('click', function() {
+            var text = document.getElementsByName('input')[0].value;
+            if (text.length === 0) {
+                return;
+            }
+            var date = new Date();
+            var titleDate = date.toDateString() + ' ' + toRelativeTime(date.getHours());
+            toDo.printToDo(titleDate, text, true);
+            document.getElementsByName('input')[0].value = "";
+            toDo.list.push({
+                'date'  : titleDate,
+                'text'  : text,
+                'active': true
+            });
+            toDo.save();
+        });
+    },
+
+    // todo- clear button
+    clear: function() {
+        this.list = [];
+        this.save();
+    },
+
+    // setup list
+    init: function() {
+        this.fetch();
+        var length = this.list.length;
+        if (length > 0) {
+            for (var i = 0; i < length; i++) {
+                this.printToDo(this.list[i].date, this.list[i].text,
+                        this.list[i].active);
+            }
+        }
+        this.clickHandlers();
     }
 }
 
-$("#done").addEventListener('click', function() {
-    if (this.classList.contains('active')) {
-        return;
-    }
-    this.classList.add('active');
-    $("#active").classList.remove('active');
-
-    var active = $(".panel-info");
-    var inactive = $(".panel-danger");
-    for (var i = 0; i < active.length; i++) {
-        active[i].classList.add('hide');
-        active[i].classList.remove('show');
-    }
-    for (var i = 0; i < inactive.length; i++) {
-        inactive[i].classList.add('show');
-        inactive[i].classList.remove('hide');
-    }
-});
-
-$("#active").addEventListener('click', function() {
-    if (this.classList.contains('active')) {
-        return;
-    }
-    this.classList.add('active');
-    $("#done").classList.remove('active');
-
-    var active = $(".panel-info");
-    var inactive = $(".panel-danger");
-    for (var i = 0; i < active.length; i++) {
-        active[i].classList.add('show');
-        active[i].classList.remove('hide');
-    }
-    for (var i = 0; i < inactive.length; i++) {
-        inactive[i].classList.add('hide');
-        inactive[i].classList.remove('show');
-    }
-});
+toDo.init(); // Start
 
 /*
-    Selector.
-    Works for #id, .class and <tag>
+    cheesy selector
+    works for #id, .class and <tag>
 */
 function $(element) {
     if (element[0] === '#') {
-        return document.querySelector(element);
+        return document.getElementById(element.slice(1, element.length));
     } else if (element[0] === '.') {
-        return document.getElementsByClassName(element.slice(1, element.length));
+        return document.querySelectorAll(element);
     } else {
-        return getElementsByTagName(element);
+        return document.querySelectorAll(element);
     }
-}
-
-/*
-    Delete a todo from our object.
-    Matches date and text
-*/
-function removeToDo(date, text) {
-    for (var i = 0; i < toDoList.length; i++) {
-        if (toDoList[i].date === date && toDoList[i].text === text) {
-            toDoList.splice(i, 1);
-        }
-    }
-    saveToDos();
-}
-
-/*
-    Flip active status, no -> yes || yes -> no
-*/
-function toggleToDo(date, text) {
-    for (var i = 0; i < toDoList.length; i++) {
-        if (toDoList[i].date === date && toDoList[i].text === text) {
-            if (toDoList[i].active === "yes") {
-                toDoList[i].active = "no";
-            } else if (toDoList[i].active === "no") {
-                toDoList[i].active = "yes";
-            }
-        }
-    }
-    saveToDos();
 }
 
 /*
@@ -114,96 +207,11 @@ function toRelativeTime(time) {
 function toggleActiveClass(panel) {
     var panelElement = panel.parentElement.parentElement;
     var classes = panelElement.classList;
-    console.log(classes);
-    if (panelElement.classList.contains('panel-info')) {
-        panelElement.classList.add('panel-danger');
-        panelElement.classList.remove('panel-info');
+    if (panelElement.classList.contains('panel-to-do')) {
+        panelElement.classList.add('panel-done');
+        panelElement.classList.remove('panel-to-do');
     } else {
-        panelElement.classList.add('panel-info');
-        panelElement.classList.remove('panel-danger');
+        panelElement.classList.add('panel-to-do');
+        panelElement.classList.remove('panel-done');
     }
-}
-
-/*
-    Prints out a Todo on the page.
-*/
-function printToDo(date, text, active) {
-    var content = document.createElement('div');
-    if (active === "yes") {
-        content.className = "panel panel-info show";
-    } else {
-        content.className = "panel panel-danger hide";
-    }
-    var heading = document.createElement('div');
-    heading.className = "panel-heading";
-    var title = document.createElement('h3');
-    title.className = "panel-title";
-    title.innerHTML = date;
-
-    var body = document.createElement('div');
-    body.className = "panel-body";
-    body.innerHTML = text;
-
-    // create button that lets the panel be archives
-    var archive = document.createElement('button');
-    archive.className = "btn btn-default block";
-    archive.innerHTML = 'Toggle';
-    archive.addEventListener('click', function() {
-        console.log(date + text);
-        console.log(this.parentElement.parentElement.classList);
-        this.parentElement.parentElement.classList.remove('show');
-        this.parentElement.parentElement.classList.add('hide');
-        toggleActiveClass(this);
-        toggleToDo(date, text);
-    });
-
-    // create button that lets the panel be deleted
-    var delButton = document.createElement('button');
-    delButton.className = "btn btn-default block";
-    delButton.innerHTML = 'Delete';
-    delButton.addEventListener('click', function() {
-        this.parentElement.parentElement.outerHTML = "";
-        console.log(date + text);
-        removeToDo(date, text);
-    });
-
-    body.appendChild(delButton);
-    body.appendChild(archive);
-    heading.appendChild(title);
-    content.appendChild(heading);
-    content.appendChild(body);
-    $('#output').appendChild(content);
-}
-
-// Add a to-do panel to the page
-$('#submit').addEventListener('click', function() {
-    var text = document.getElementsByName('input')[0].value;
-    if (text.length === 0) {
-        return;
-    }
-    var date = new Date();
-    var titleDate = date.toDateString() + ' ' + toRelativeTime(date.getHours());
-    console.log(text);
-    printToDo(titleDate, text, 'yes');
-    document.getElementsByName('input')[0].value = "";
-    toDoList.push({
-        'date'  : titleDate,
-        'text'  : text,
-        'active': 'yes'
-    });
-    console.log(toDoList);
-    saveToDos();
-});
-
-/* Credit to http://stackoverflow.com/a/2010948/7265789 for saving object. */
-function saveToDos() {
-    localStorage.setItem('toDoList', JSON.stringify(toDoList));
-}
-
-function getToDos() {
-    var retrievedObject = localStorage.getItem('toDoList');
-    if (retrievedObject === null) {
-        return [];
-    }
-    return JSON.parse(retrievedObject);
 }
