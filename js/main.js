@@ -35,11 +35,11 @@ var toDo = {
 
     // removes an item from local storage
     remove: function(date, text) {
-        var length = this.list.length;
-        for (var i = 0; i < length; i++) {
+        for (var i = 0; i < this.list.length; i++) {
             if (this.list[i].date === date
                     && this.list[i].text === text) {
                 this.list.splice(i, 1);
+            break;
             }
         }
         this.save();
@@ -51,6 +51,7 @@ var toDo = {
             if (this.list[i].date === date
                     && this.list[i].text === text) {
                 this.list[i].active = !this.list[i].active;
+            break;
             }
         }
         this.save();
@@ -58,11 +59,11 @@ var toDo = {
 
     // Prints out a Todo on the page.
     printToDo: function(date, text, active) {
-        var content = document.createElement('div');
+        var panel = document.createElement('div');
         if (active) {
-            content.className = "panel panel-to-do show";
+            panel.className = "panel panel-to-do show";
         } else {
-            content.className = "panel panel-done hide";
+            panel.className = "panel panel-done hide";
         }
         var heading = document.createElement('div');
         heading.className = "panel-heading";
@@ -99,9 +100,9 @@ var toDo = {
         body.appendChild(delButton);
         body.appendChild(toggled);
         heading.appendChild(title);
-        content.appendChild(heading);
-        content.appendChild(body);
-        $('#output').appendChild(content);
+        panel.appendChild(heading);
+        panel.appendChild(body);
+        $('#output').appendChild(panel);
     },
 
     clickHandlers: function() {
@@ -208,7 +209,7 @@ function toRelativeTime(hour, minutes) {
     if (minutes < 10) {
         minutes = '0' + minutes;
     }
-    if (hour >= 12) {
+    if (hour > 12) {
         hour -= 12;
         return hour + ':' + minutes + 'pm'
     }
