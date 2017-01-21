@@ -137,23 +137,11 @@ var toDo = {
             });
         }
         // Add a to-do panel to the page
-        $('#submit').addEventListener('click', function() {
-            var text = document.getElementsByName('input')[0].value;
-            if (text.length === 0) {
-                return;
-            }
-            var date = new Date();
-            var titleDate = date.toDateString() + ' ' + toRelativeTime(date.getHours(), date.getMinutes());
-            toDo.printToDo(titleDate, text, true);
-            document.getElementsByName('input')[0].value = "";
-            toDo.list.push({
-                'date'  : titleDate,
-                'text'  : text,
-                'active': true
-            });
-            $("#active").click();
-            toDo.save();
-        });
+        $('#submit').addEventListener('click', this.newToDo);
+
+        // bind this context
+        $('input')[0].addEventListener('keypress', this.keyCallback.bind(this));
+
         $("#clear").addEventListener('click', function() {
             toDo.clear();
             var all = $(".panel");
@@ -161,6 +149,31 @@ var toDo = {
                 all[i].outerHTML = ""; // purge panels
             }
         });
+    },
+
+    keyCallback: function(e) {
+        var key = e.which || e.keyCode;
+        if (key === 13) { // listen for enter key
+          this.newToDo();
+        }
+    },
+
+    newToDo: function() {
+        var text = $('input')[0].value;
+        if (text.length === 0) {
+            return;
+        }
+        var date = new Date();
+        var titleDate = date.toDateString() + ' ' + toRelativeTime(date.getHours(), date.getMinutes());
+        toDo.printToDo(titleDate, text, true);
+        $('input')[0].value = "";
+        toDo.list.push({
+            'date'  : titleDate,
+            'text'  : text,
+            'active': true
+        });
+        $("#active").click();
+        toDo.save();
     },
 
     // todo- clear button
