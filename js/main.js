@@ -60,11 +60,7 @@ var toDo = {
     // Prints out a Todo on the page.
     printToDo: function(date, text, active) {
         var panel = document.createElement('div');
-        if (active) {
-            panel.className = "panel panel-to-do show";
-        } else {
-            panel.className = "panel panel-done hide";
-        }
+        
         var heading = document.createElement('div');
         heading.className = "panel-heading";
         var title = document.createElement('h3');
@@ -78,7 +74,16 @@ var toDo = {
         // create button that lets the panel be toggled
         var toggled = document.createElement('button');
         toggled.className = "btn btn-default block";
-        toggled.innerHTML = 'Toggle';
+
+        // see if the buttons active or not again
+        if (active) {
+            panel.className = "panel panel-to-do show";
+            toggled.innerHTML = 'Done';
+        } else {
+            panel.className = "panel panel-done hide";
+            toggled.innerHTML = 'Revert';
+        }
+
         toggled.addEventListener('click', function() {
             var panelOwner = this.parentElement.parentElement;
             panelOwner.classList.remove('show');
@@ -232,14 +237,16 @@ function toRelativeTime(hour, minutes) {
     return hour + ':' + minutes + 'am';
 }
 
-function toggleActiveClass(panel) {
-    var panelElement = panel.parentElement.parentElement;
+function toggleActiveClass(button) {
+    var panelElement = button.parentElement.parentElement;
     var classes = panelElement.classList;
     if (panelElement.classList.contains('panel-to-do')) {
         panelElement.classList.add('panel-done');
         panelElement.classList.remove('panel-to-do');
+        button.innerHTML = 'Revert';
     } else {
         panelElement.classList.add('panel-to-do');
         panelElement.classList.remove('panel-done');
+        button.innerHTML = 'Done';
     }
 }
