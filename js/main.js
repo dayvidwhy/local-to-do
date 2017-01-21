@@ -88,7 +88,7 @@ var toDo = {
             var panelOwner = this.parentElement.parentElement;
             panelOwner.classList.remove('show');
             panelOwner.classList.add('hide');
-            toggleActiveClass(this);
+            toDo.toggleActiveClass(this);
             toDo.toggle(date, text);
         });
 
@@ -181,6 +181,20 @@ var toDo = {
         toDo.save();
     },
 
+    toggleActiveClass: function(button) {
+        var panelElement = button.parentElement.parentElement;
+        var classes = panelElement.classList;
+        if (panelElement.classList.contains('panel-to-do')) {
+            panelElement.classList.add('panel-done');
+            panelElement.classList.remove('panel-to-do');
+            button.innerHTML = 'Revert';
+        } else {
+            panelElement.classList.add('panel-to-do');
+            panelElement.classList.remove('panel-done');
+            button.innerHTML = 'Done';
+        }
+    },
+
     // todo- clear button
     clear: function() {
         this.list = [];
@@ -235,18 +249,4 @@ function toRelativeTime(hour, minutes) {
         return '12:' + minutes + 'am';
     }
     return hour + ':' + minutes + 'am';
-}
-
-function toggleActiveClass(button) {
-    var panelElement = button.parentElement.parentElement;
-    var classes = panelElement.classList;
-    if (panelElement.classList.contains('panel-to-do')) {
-        panelElement.classList.add('panel-done');
-        panelElement.classList.remove('panel-to-do');
-        button.innerHTML = 'Revert';
-    } else {
-        panelElement.classList.add('panel-to-do');
-        panelElement.classList.remove('panel-done');
-        button.innerHTML = 'Done';
-    }
 }
