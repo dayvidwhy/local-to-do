@@ -38,9 +38,9 @@ Author: David Young
     /* 
     * Removes an item from local storage
     */
-    function removeToDo(date, text) {
+    function removeToDo(timestamp, text) {
         for (var i = 0; i < list.length; i++) {
-            if (list[i].date === date &&
+            if (list[i].timestamp === timestamp &&
                     list[i].text === text) {
                 list.splice(i, 1);
             break;
@@ -52,9 +52,9 @@ Author: David Young
     /* 
     * Toggles an items active state.
     */
-    function toggle(date, text) {
+    function toggle(timestamp, text) {
         for (var i = 0; i < list.length; i++) {
-            if (list[i].date === date &&
+            if (list[i].timestamp === timestamp &&
                     list[i].text === text) {
                 list[i].active = !list[i].active;
             break;
@@ -66,7 +66,7 @@ Author: David Young
     /* 
     * Prints out a Todo on the page.
     */
-    function printToDo(date, text, active) {
+    function printToDo(date, timestamp, text, active) {
         var panel = document.createElement('div');
         
         var heading = document.createElement('div');
@@ -97,7 +97,7 @@ Author: David Young
             panelOwner.classList.remove('show');
             panelOwner.classList.add('hide');
             toggleActiveClass(this);
-            toggle(date, text);
+            toggle(timestamp, text);
         });
 
         // create button that lets the panel be deleted
@@ -106,7 +106,7 @@ Author: David Young
         delButton.innerHTML = 'Delete';
         delButton.addEventListener('click', function() {
             this.parentElement.parentElement.outerHTML = "";
-            removeToDo(date, text);
+            removeToDo(timestamp, text);
         });
 
         // Add to the DOM
@@ -191,11 +191,12 @@ Author: David Young
         }
         var date = new Date();
         var titleDate = date.toDateString() + ' ' + toRelativeTime(date.getHours(), date.getMinutes());
-        printToDo(titleDate, text, true);
+        printToDo(titleDate, +date, text, true);
         $('input')[0].value = "";
         list.push({
             'date'  : titleDate,
             'text'  : text,
+            'timestamp': +date,
             'active': true
         });
         $("#active").click();
@@ -245,8 +246,9 @@ Author: David Young
                     
                     // print each to-do
                     printToDo(
-                        list[i].date, 
-                        list[i].text, 
+                        list[i].date,
+                        list[i].timestamp,
+                        list[i].text,
                         list[i].active
                     );
                 }
