@@ -32,9 +32,6 @@ body {
     margin-left: calc(100% / 12 * 2);
 }
 
-
-/* End text */
-
 /* Simple resize */
 @media screen and (max-width: 960px) {
     .container {
