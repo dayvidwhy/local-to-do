@@ -25,7 +25,7 @@
     }
 
     // We want to add a new ToDo.
-    function createToDo (event) {
+    function createToDo () {
         var text = currentEntry;
         var date = new Date();
         var titleDate = date.toDateString() + " " + date.toTimeString();
@@ -129,7 +129,10 @@
     <div class="row top-margin">
         <div id="output" class="col-8 offset-2">
             {#each getTodosToShow as todo}
-                <div class:panel-to-do="{todo.active}" class:panel-done="{!todo.active}" class="panel show">
+                <div
+                    class:panel-to-do="{todo.active}"
+                    class:panel-done="{!todo.active}"
+                    class="panel">
                     <div class="panel-heading">
                         <h3 class="panel-title">
                             {new Date(todo.timestamp).toUTCString()}
