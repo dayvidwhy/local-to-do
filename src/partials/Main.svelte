@@ -132,7 +132,7 @@
                 <div class:panel-to-do="{todo.active}" class:panel-done="{!todo.active}" class="panel show">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            {todo.timestamp}
+                            {new Date(todo.timestamp).toUTCString()}
                         </h3>
                     </div>
                     <div class="panel-body">
