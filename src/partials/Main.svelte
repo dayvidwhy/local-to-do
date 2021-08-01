@@ -58,6 +58,17 @@
         toDos = toDos;
     }
 
+    const deleteToDo = (deletedTodo) => {
+        for (let i = 0; i < toDos.length; i++) {
+            if (deletedTodo.timestamp === toDos[i].timestamp) {
+                toDos.splice(i, 1);
+                break;
+            }
+        }
+        toDos = toDos;
+        save();
+    }
+
     $: getTodosToShow = toDos.filter(value => value.active === showActiveTodos);
 
 </script>
@@ -126,7 +137,9 @@
                     </div>
                     <div class="panel-body">
                         {todo.text}
-                        <button class="btn btn-default block">
+                        <button
+                            on:click={() => deleteToDo(todo)}
+                            class="btn btn-default block">
                             Delete
                         </button>
                         <button
