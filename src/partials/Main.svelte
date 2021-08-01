@@ -35,6 +35,7 @@
             "timestamp": +date,
             "active": true
         }, ...toDos];
+        currentEntry = "";
         save();
     };
 
@@ -70,7 +71,6 @@
     }
 
     $: getTodosToShow = toDos.filter(value => value.active === showActiveTodos);
-
 </script>
 
 <main class="container">
