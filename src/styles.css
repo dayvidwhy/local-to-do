@@ -161,12 +161,11 @@ h1,h2,h3,h4,h5,h6 {
 }
 /* end buttons */
 .input-button {
-    width: 10%;
+    width: 9%;
     display: inline-block;
     font-size: 24px;
     padding: 10px;
     border-radius: 0;
-    border-left: none;
     transition: all 0.1s ease-in-out;
 }
 
@@ -179,7 +178,6 @@ input[type=text] {
     display: inline-block;
     padding: 13px;
     border: 1px solid #ccc;
-    border-right: none;
     outline: none;
     font-size: 24px;
     cursor: inherit;
