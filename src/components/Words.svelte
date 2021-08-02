@@ -2,6 +2,11 @@
     export let size = "small";
 </script>
 
+{#if size === "simple"}
+    <span>
+        <slot></slot>
+    </span>
+{/if}
 {#if size === "small"}
     <p>
         <slot></slot>

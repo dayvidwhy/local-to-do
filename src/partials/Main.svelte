@@ -111,20 +111,29 @@
                     active={showActiveTodos}
                     type={"default"}
                     aria={"Active Items"}>
-                    Active
+                    <Words
+                        size={"simple"}>
+                        Active
+                    </Words>
                 </Button>
                 <Button
                     on:click={viewDoneTodos}
                     active={!showActiveTodos}
                     type={"default"}
                     aria={"Done Items"}>
-                    Done
+                    <Words
+                        size={"simple"}>
+                        Done
+                    </Words>
                 </Button>
                 <Button
                     on:click={clearToDo}
                     type={"danger"}
                     aria={"Active Items"}>
-                    Clear All
+                    <Words
+                        size={"simple"}>
+                        Clear All
+                    </Words>
                 </Button>
             </div>
         </div>

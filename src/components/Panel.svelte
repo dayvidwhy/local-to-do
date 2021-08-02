@@ -1,6 +1,7 @@
 <script>
     import { createEventDispatcher } from "svelte";
     import Button from "./Button.svelte";
+    import Words from "./Words.svelte";
 
     export let todo;
 
@@ -25,19 +26,26 @@
         </h3>
     </div>
     <div class="panel-body">
-        <span>
+        <Words
+            size={"simple"}>
             {todo.text}
-        </span>
+        </Words>
         <span class="float-right">
             <Button
                 type={"default"}
                 on:click={() => toggleToDo(todo)}>
-                {todo.active ? "Done" : "Revert"}
+                <Words
+                    size={"simple"}>
+                    {todo.active ? "Done" : "Revert"}
+                </Words>
             </Button>
             <Button
                 type={"default"}
                 on:click={() => deleteToDo(todo)}>
-                Delete
+                <Words
+                    size={"simple"}>
+                    Delete
+                </Words>
             </Button>
         </span>
     </div>
@@ -47,6 +55,7 @@
     .float-right {
         float: right;
     }
+
     .panel {
         border: 1px solid #7f8c8d;
         margin-bottom: 10px;

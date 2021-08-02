@@ -19,6 +19,7 @@
     .text-center {
         text-align: center;
     }
+
     .page-header {
         border-bottom: 1px solid #7f8c8d;
     }
