@@ -1,5 +1,7 @@
 <script>
     import { onMount } from 'svelte';
+    import Panel from "../components/Panel.svelte";
+    import Button from "../components/Button.svelte";
 
     let toDos = [];
 
@@ -53,13 +55,15 @@
         showActiveTodos = false;
     }
     
-    function toggleTodo (todo) {
+    function toggleToDo (event) {
+        const todo = event.detail;
         todo.active = !todo.active;
         // quirk with svelte, see https://svelte.dev/tutorial/updating-arrays-and-objects
         toDos = toDos;
     }
 
-    const deleteToDo = (deletedTodo) => {
+    const deleteToDo = (event) => {
+        const deletedTodo = event.detail;
         for (let i = 0; i < toDos.length; i++) {
             if (deletedTodo.timestamp === toDos[i].timestamp) {
                 toDos.splice(i, 1);
@@ -89,10 +93,10 @@
                     class="form-control"
                     placeholder="I want to..."
                     bind:value={currentEntry} />
-                <input
+                <button
                     type="submit"
                     value="+"
-                    class="btn btn-default input-button" />
+                    class="btn btn-default input-button">+</button>
             </form>
         </div>
     </div>
@@ -102,56 +106,36 @@
                 class="btn-group"
                 role="group"
                 aria-label="Active and Done">
-                <button
+                <Button
                     on:click={viewActiveTodos}
-                    class:active="{showActiveTodos}"
-                    class="btn btn-default state-buttons"
-                    aria-label="Active Items">
+                    active={showActiveTodos}
+                    type={"default"}
+                    aria={"Active Items"}>
                     Active
-                </button>
-                <button
+                </Button>
+                <Button
                     on:click={viewDoneTodos}
-                    class:active="{!showActiveTodos}"
-                    class="btn btn-default state-buttons"
-                    aria-label="Done Items">
+                    active={!showActiveTodos}
+                    type={"default"}
+                    aria={"Done Items"}>
                     Done
-                </button>
-                <button
+                </Button>
+                <Button
                     on:click={clearToDo}
-                    type="button"
-                    class="btn btn-danger"
-                    aria-label="Active Items">
+                    type={"danger"}
+                    aria={"Active Items"}>
                     Clear All
-                </button>
+                </Button>
             </div>
         </div>
     </div>
     <div class="row top-margin">
-        <div id="output" class="col-8 offset-2">
+        <div class="col-8 offset-2">
             {#each getTodosToShow as todo}
-                <div
-                    class:panel-to-do="{todo.active}"
-                    class:panel-done="{!todo.active}"
-                    class="panel">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            {new Date(todo.timestamp).toUTCString()}
-                        </h3>
-                    </div>
-                    <div class="panel-body">
-                        {todo.text}
-                        <button
-                            on:click={() => deleteToDo(todo)}
-                            class="btn btn-default block">
-                            Delete
-                        </button>
-                        <button
-                            on:click={() => toggleTodo(todo)}
-                            class="btn btn-default block">
-                            {todo.active ? "Done" : "Revert"}
-                        </button>
-                    </div>
-                </div>
+                <Panel
+                    todo={todo}
+                    on:deleteToDo={deleteToDo}
+                    on:toggleToDo={toggleToDo} />
             {/each}
         </div>
     </div>
@@ -165,42 +149,6 @@
     .top-margin {
         margin-top: 10px;
     }
-
-    .block {
-        display: block;
-        float: right;
-        margin-left: 10px;
-    }
-
-    /* buttons */
-    .btn {
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.42857143;
-        white-space: nowrap;
-        cursor: pointer;
-        border-radius: 4px;
-        border: 1px solid transparent;
-    }
-
-    .btn-default {
-        color: #333;
-        background-color: #fff;
-        border-color: #ccc;
-    }
-
-    .btn-danger {
-        color: #a94442;
-        background-color: #f2dede;
-        border-color: #ebccd1;
-    }
-
-    .active {
-        color: #FFF;
-        background-color: #2980b9;
-        border-color: #adadad;
-    }
-
     .btn-group {
         text-align: center;
         width: 100%;
@@ -208,18 +156,14 @@
         margin: 10px 0;
     }
 
-    .btn-group > .btn {
-        width: 20%;
-        display: inline-block;
-    }
-    .btn-group > .btn:first-child {
-        margin-right: 1%;
-    }
-    .btn-group > .btn:last-child {
-        margin-left: 1%;
-    }
-    /* end buttons */
     .input-button {
+        line-height: 1.42857143;
+        white-space: nowrap;
+        cursor: pointer;
+        border: 1px solid transparent;
+        color: #333;
+        background-color: #fff;
+        border-color: #ccc;
         width: 9%;
         display: inline-block;
         font-size: 24px;
@@ -242,47 +186,4 @@
         cursor: inherit;
         width: 90%;
     }
-
-    /* Panels */
-    .panel {
-        border: 1px solid #7f8c8d;
-        margin-bottom: 10px;
-        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    }
-
-    .panel-to-do {
-        border-color: #bce8f1;
-    }
-
-    .panel-heading {
-        padding: 10px 15px;
-    }
-
-    .panel-title {
-        font-size: 16px;
-        color: inherit;
-    }
-
-    .panel-to-do > .panel-heading {
-        color: #31708f;
-        background-color: #d9edf7;
-        border-color: #bce8f1;
-    }
-
-    .panel-done {
-        border-color: #ebccd1;
-    }
-
-    .panel-done > .panel-heading {
-        color: #a94442;
-        background-color: #f2dede;
-        border-color: #ebccd1;
-    }
-
-    .panel-body {
-        font-size: 1.7em;
-        padding: 15px 15px;
-        background-color: #FFF;
-    }
-    /* End panels */
 </style>
