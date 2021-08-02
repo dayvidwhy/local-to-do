@@ -7,7 +7,7 @@
 
     onMount(fetch);
     let currentEntry = "";
-    let showActiveTodos = true; // or "done"
+    let showActiveTodos = true;
 
     // Gets list of To-Do's from local storage
     function fetch () {
@@ -19,14 +19,12 @@
         }
     }
 
-    /*
-    * Saves list of to-do's to local storage
-    */
+    // Saves list of To-Do's to local storage
     function save () {
         localStorage.setItem("toDoList", JSON.stringify(toDos));
     }
 
-    // We want to add a new ToDo.
+    // We want to add a new To-Do.
     function createToDo () {
         var text = currentEntry;
         var date = new Date();
@@ -96,7 +94,7 @@
                 <button
                     type="submit"
                     value="+"
-                    class="btn btn-default input-button">+</button>
+                    class="input-button">+</button>
             </form>
         </div>
     </div>
