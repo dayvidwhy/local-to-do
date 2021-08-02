@@ -2,7 +2,7 @@
     import { createEventDispatcher } from "svelte";
 
     export let aria = "";
-    export let type;
+    export let type = "default";
     export let active = false;
 
     const dispatch = createEventDispatcher();
@@ -17,7 +17,7 @@
     class:btn-danger={type === "danger"}
     class:btn-default={type === "default"}
     class:active={active}
-    class="btn btn-default"
+    class="btn"
     aria-label={aria}>
     <slot></slot>
 </button>
