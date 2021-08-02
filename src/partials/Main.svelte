@@ -2,6 +2,7 @@
     import { onMount } from 'svelte';
     import Panel from "../components/Panel.svelte";
     import Button from "../components/Button.svelte";
+    import Words from "../components/Words.svelte";
 
     let toDos = [];
 
@@ -78,13 +79,14 @@
 <main class="container">
     <div class="row">
         <div class="col-8 offset-2">
-            <h2>
+            <Words
+                size={"regular"}>
                 What's this?
-            </h2>
-            <p>
+            </Words>
+            <Words size={"small"}>
                 I wanted to test out the abilities of local storage to keep track of some items.
                 Things you enter in the box below will get kept on record in your browser.
-            </p>
+            </Words>
             <form on:submit|preventDefault={createToDo}>
                 <input
                     type="text"
