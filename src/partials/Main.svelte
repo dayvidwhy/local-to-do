@@ -1,5 +1,5 @@
 <script>
-    import { onMount } from 'svelte';
+    import { onMount } from "svelte";
     import Panel from "../components/Panel.svelte";
     import Button from "../components/Button.svelte";
     import Words from "../components/Words.svelte";
@@ -38,7 +38,7 @@
         }, ...toDos];
         currentEntry = "";
         save();
-    };
+    }
 
     // Clear To-Do's
     function clearToDo () {
