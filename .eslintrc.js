@@ -15,8 +15,7 @@ module.exports = {
     "ignorePatterns": ["**/docs/*"],
     "rules": {
         "quotes": ["error", "double"],
-        "indent": ["error", 4],
-        "@typescript-eslint/no-var-requires": 0
+        "indent": ["error", 4]
     },
     "plugins": [
         "svelte3"
