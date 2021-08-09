@@ -16,9 +16,9 @@ module.exports = (env, argv) => {
             mainFields: ["svelte", "browser", "module", "main"]
         },
         output: {
-            path: path.join(__dirname, "dist"),
-            filename: "[name].js",
-            chunkFilename: "[name].[id].js"
+            filename: "[name].[contenthash:8].js",
+            path: path.resolve(__dirname, "dist"),
+            chunkFilename: "[name].[contenthash:8].js"
         },
         module: {
             rules: [
@@ -53,7 +53,8 @@ module.exports = (env, argv) => {
         },
         plugins: [
             new MiniCssExtractPlugin({
-                filename: "[name].css"
+                filename: "[name].[contenthash:8].css",
+                chunkFilename: "[name].[contenthash:8].css"
             }),
             new htmlWebpackPlugin({
                 template: path.resolve(__dirname, "public", "index.html")
