@@ -4,14 +4,13 @@
     "description": "Uses the local storage web api to track notes",
     "main": "index.js",
     "scripts": {
-        "build": "cross-env NODE_ENV=production webpack",
-        "dev": "webpack serve --content-base docs",
+        "build": "webpack --mode=production",
+        "dev": "webpack serve --content-base docs --mode=development",
         "lint": "npx eslint . --ext .js,.svelte",
         "lint:fix": "npx eslint . --ext .js,.svelte --fix",
         "deploy": "gh-pages -d dist"
     },
     "devDependencies": {
-        "cross-env": "^7.0.3",
         "css-loader": "^5.0.1",
         "eslint": "^7.32.0",
         "eslint-plugin-svelte3": "^3.2.0",
