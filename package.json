@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "build": "webpack --mode=production",
-        "dev": "webpack serve --content-base docs --mode=development",
+        "dev": "webpack serve --mode=development",
         "lint": "npx eslint . --ext .js,.svelte",
         "lint:fix": "npx eslint . --ext .js,.svelte --fix",
         "deploy": "gh-pages -d dist"
