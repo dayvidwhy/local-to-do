@@ -158,6 +158,7 @@
     .top-margin {
         margin-top: 10px;
     }
+
     .btn-group {
         text-align: center;
         width: 100%;
