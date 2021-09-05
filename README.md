@@ -1,20 +1,21 @@
-# Local Storage based To-Do List
-Just playing around with local storage and how we can keep track of objects using it.
+# Local To Do
+Uses local storage to keep track of to do items built using Svelte.
 
 ## Installation
-1. `git clone https://github.com/dayvidwhy/local-to-do.git`
-2. `cd local-to-do`
-3. `npm install`
-4. `npm run dev`
+```bash
+git clone https://github.com/dayvidwhy/local-to-do.git
+cd local-to-do
+npm install
+npm run dev
+```
+
+## How it works
+Persistance is achieved by stringifying our to do items and storing them in local storage, a browser API that holds onto the items between page visits.
 
 ## Deployment
-We commit the contents of the `./docs` folder (which is the `./public` folder) over deploying to the branch `gh-pages`.
+Deployment scripts are provided to push the built directory to the `gh-pages` branch which can then be served up using GitHub pges.
 
-## Contributing
-Please create a github issue with your suggested change and submit a pull request against it for consideration.
-
-## To-Do
-* Maybe export list to a calendar service.
-
-## Licence
-See the file `LICENSE` in the repository root directory.
+```bash
+npm run build
+npm run deploy
+```
