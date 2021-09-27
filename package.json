@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "build": "webpack --mode=production",
-        "dev": "webpack serve --mode=development",
+        "dev": "webpack-dev-server --mode development",
         "lint": "npx eslint . --ext .js,.svelte",
         "lint:fix": "npx eslint . --ext .js,.svelte --fix",
         "deploy": "gh-pages -d dist"
@@ -21,11 +21,11 @@
         "svelte-loader": "^3.0.0",
         "webpack": "^5.16.0",
         "webpack-cli": "^4.4.0",
-        "webpack-dev-server": "^3.11.2"
+        "webpack-dev-server": "^4.3.0"
     },
     "engines": {
         "node": "14.x"
-      },
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/dayvidwhy/local-to-do.git"
